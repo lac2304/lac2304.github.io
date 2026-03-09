@@ -3,74 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nguyen Loi | Developer</title>
+
+<title>Nguyen Huu Loi | Developer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
 body{
-    margin:0;
-    font-family: Arial;
-    background:#0f172a;
-    color:white;
-}
-
-header{
-    text-align:center;
-    padding:60px;
-}
-
-header h1{
-    font-size:50px;
-}
-
-header p{
-    color:#94a3b8;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
 }
 
 .container{
-    width:80%;
-    margin:auto;
+width:90%;
+max-width:1100px;
+margin:auto;
 }
 
-.section{
-    margin-top:60px;
+header{
+text-align:center;
+padding:80px 0;
+}
+
+header img{
+width:120px;
+border-radius:50%;
+margin-bottom:20px;
+border:4px solid #38bdf8;
+}
+
+header h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+header p{
+color:#94a3b8;
+margin-bottom:25px;
+}
+
+.btn{
+display:inline-block;
+background:#38bdf8;
+padding:12px 25px;
+border-radius:30px;
+color:white;
+text-decoration:none;
+transition:.3s;
+}
+
+.btn:hover{
+background:#0ea5e9;
+transform:scale(1.05);
+}
+
+section{
+margin:70px 0;
+}
+
+h2{
+margin-bottom:25px;
+border-bottom:2px solid #38bdf8;
+display:inline-block;
+padding-bottom:5px;
 }
 
 .skills span{
-    background:#1e293b;
-    padding:10px 15px;
-    margin:5px;
-    display:inline-block;
-    border-radius:5px;
+background:#1e293b;
+padding:10px 18px;
+border-radius:20px;
+margin:6px;
+display:inline-block;
+transition:.3s;
 }
 
-.project{
-    background:#1e293b;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:20px;
+.skills span:hover{
+background:#38bdf8;
 }
 
-.project h3{
-    margin-top:0;
+.projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:12px;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 10px 20px rgba(0,0,0,0.4);
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.card a{
+color:#38bdf8;
+text-decoration:none;
 }
 
 footer{
-    text-align:center;
-    padding:30px;
-    color:#94a3b8;
-}
-
-button{
-    background:#38bdf8;
-    border:none;
-    padding:10px 20px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#0ea5e9;
+text-align:center;
+margin-top:80px;
+padding:20px;
+color:#94a3b8;
 }
 
 </style>
@@ -78,65 +129,89 @@ button:hover{
 
 <body>
 
-<header>
-<h1>Nguyen Loi</h1>
-<p>Backend Developer | ASP.NET | React</p>
-
-<a href="https://github.com/lac2304">
-<button>GitHub</button>
-</a>
-</header>
-
 <div class="container">
 
-<div class="section">
-<h2>About Me</h2>
-<p>
-I am a developer passionate about building web applications.  
-Currently working with ASP.NET, React and SQL Server.
-</p>
-</div>
+<header>
 
-<div class="section">
+<img src="https://avatars.githubusercontent.com/u/1?v=4">
+
+<h1>Nguyen Huu Loi</h1>
+
+<p>Backend Developer | ASP.NET | React</p>
+
+<a class="btn" href="https://github.com/lac2304" target="_blank">
+View My GitHub
+</a>
+
+</header>
+
+
+<section>
+
+<h2>About Me</h2>
+
+<p>
+I am a developer passionate about building web applications.
+I enjoy working with ASP.NET, React and databases.
+My goal is to become a professional full-stack developer.
+</p>
+
+</section>
+
+
+<section>
+
 <h2>Skills</h2>
 
 <div class="skills">
 <span>C#</span>
 <span>ASP.NET</span>
-<span>ReactJS</span>
-<span>SQL Server</span>
+<span>React</span>
 <span>JavaScript</span>
+<span>SQL Server</span>
 <span>HTML</span>
 <span>CSS</span>
+<span>Git</span>
 </div>
 
-</div>
+</section>
 
-<div class="section">
+
+<section>
+
 <h2>Projects</h2>
 
-<div class="project">
+<div class="projects">
+
+<div class="card">
 <h3>BookStore Management</h3>
-<p>ASP.NET web application for managing books, inventory and orders.</p>
+<p>ASP.NET web application for managing books and orders.</p>
+<a href="https://github.com/lac2304">View Project →</a>
 </div>
 
-<div class="project">
+<div class="card">
 <h3>Social Media React App</h3>
-<p>React application with posts, likes, comments and nested replies.</p>
+<p>React application with posts, likes and nested comments.</p>
+<a href="https://github.com/lac2304">View Project →</a>
 </div>
 
-<div class="project">
+<div class="card">
 <h3>Order Management System</h3>
-<p>Windows Forms application using ADO.NET to manage clients and orders.</p>
+<p>Desktop application built with C# and ADO.NET.</p>
+<a href="https://github.com/lac2304">View Project →</a>
 </div>
 
 </div>
 
-</div>
+</section>
 
 <footer>
-© 2026 Nguyen Loi
+
+© 2026 Nguyen Huu Loi
+
 </footer>
+
+</div>
 
 </body>
 </html>

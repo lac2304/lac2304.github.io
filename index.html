@@ -9,13 +9,14 @@
     
     <style>
         :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --bg: #030712;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-            --text-main: #f3f4f6;
-            --text-dim: #9ca3af;
+            --primary: #2563eb; /* Royal Blue công nghệ */
+            --secondary: #7dd3fc;
+            --bg: #ffffff;
+            --sub-bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --border: rgba(0, 0, 0, 0.05);
+            --text-main: #0f172a;
+            --text-dim: #64748b;
         }
 
         * {
@@ -32,143 +33,143 @@
             overflow-x: hidden;
         }
 
-        /* Hiệu ứng nền động */
-        .bg-glow {
+        /* Nền hiệu ứng hiện đại */
+        .bg-elements {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #1e293b 0%, #030712 100%);
+            background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
         }
 
         .blob {
             position: absolute;
-            width: 500px; height: 500px;
-            background: linear-gradient(var(--primary), var(--secondary));
-            filter: blur(80px);
-            opacity: 0.15;
-            border-radius: 50%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            filter: blur(100px);
+            opacity: 0.2;
             z-index: -1;
-            animation: move 20s infinite alternate;
+            animation: float 25s infinite alternate;
         }
 
-        @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 20%); }
+        @keyframes float {
+            0% { transform: translate(-10%, -10%); }
+            100% { transform: translate(30%, 20%); }
         }
 
         .container {
             width: 90%;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: auto;
         }
 
-        /* Header Section */
+        /* Header */
         header {
             text-align: center;
-            padding: 100px 0 60px;
+            padding: 120px 0 80px;
         }
 
         .profile-container {
             position: relative;
             display: inline-block;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         header img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            padding: 5px;
-            background: var(--bg);
+            width: 150px;
+            height: 150px;
+            border-radius: 40px; /* Bo kiểu iOS hiện đại */
+            border: 4px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             position: relative;
             z-index: 2;
-        }
-
-        .profile-container::after {
-            content: '';
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            background: linear-gradient(45deg, var(--primary), transparent, var(--secondary));
-            border-radius: 50%;
-            animation: rotate 5s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            object-fit: cover;
         }
 
         header h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            font-size: clamp(2.5rem, 8vw, 4rem);
             font-weight: 700;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
+            letter-spacing: -2px;
             margin-bottom: 10px;
         }
 
         header p {
-            color: var(--text-dim);
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+            text-transform: uppercase;
         }
 
-        /* Buttons */
+        /* Buttons group */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            padding: 12px 30px;
-            border-radius: 50px;
+            background: var(--text-main);
             color: white;
+            padding: 14px 28px;
+            border-radius: 16px;
             text-decoration: none;
-            backdrop-filter: blur(10px);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: 500;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
         }
 
-        .btn-group{
-            display:flex;
-            justify-content:center;
-            gap:15px;
-            flex-wrap:wrap;
-            margin-top:10px;
+        .btn-outline {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
         }
 
         .btn:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.2);
             background: var(--primary);
-            color: #000;
+            color: white;
         }
 
         /* Sections */
         section {
-            margin-bottom: 100px;
+            padding: 80px 0;
         }
 
         h2 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
         }
 
-        h2::after {
+        h2::before {
             content: '';
-            height: 1px;
-            flex-grow: 1;
-            background: linear-gradient(to right, var(--primary), transparent);
+            position: absolute;
+            left: 0; bottom: -10px;
+            width: 50px; height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
 
-        /* Skills */
+        /* About Text */
+        .about-content {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 800px;
+            line-height: 1.8;
+        }
+
+        .about-content b { color: var(--text-main); }
+
+        /* Skills Grid */
         .skills {
             display: flex;
             flex-wrap: wrap;
@@ -176,177 +177,156 @@
         }
 
         .skills span {
-            background: var(--card-bg);
+            background: white;
             border: 1px solid var(--border);
-            padding: 8px 20px;
-            border-radius: 12px;
-            font-size: 0.9rem;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
             transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .skills span:hover {
-            background: rgba(0, 210, 255, 0.1);
             border-color: var(--primary);
             color: var(--primary);
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
 
-        /* Projects Grid */
+        /* Projects */
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
+            padding: 40px;
+            border-radius: 32px;
+            backdrop-filter: blur(10px);
             transition: 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(0, 210, 255, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-        }
-
-        .card:hover::before {
-            transform: translateX(100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
         .card:hover {
-            border-color: rgba(0, 210, 255, 0.5);
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.1);
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.05);
         }
 
         .card h3 {
-            margin-bottom: 12px;
-            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         .card p {
             color: var(--text-dim);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .card a {
-            color: #fff;
+            color: var(--primary);
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 5px;
-        }
-
-        .card a:hover {
-            text-decoration: underline;
+            gap: 8px;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 50px 0;
-            border-top: 1px solid var(--border);
+            padding: 80px 0 40px;
             color: var(--text-dim);
+            border-top: 1px solid var(--border);
             font-size: 0.9rem;
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
-            header h1 { font-size: 2rem; }
-            section { margin-bottom: 60px; }
+            header { padding-top: 60px; }
+            header h1 { font-size: 2.5rem; }
+            .btn-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow">
-        <div class="blob"></div>
+    <div class="bg-elements">
+        <div class="blob" style="top: 10%; left: -10%;"></div>
+        <div class="blob" style="bottom: 10%; right: -10%; background: radial-gradient(circle, #bae6fd 0%, transparent 70%);"></div>
     </div>
 
     <div class="container">
         <header>
             <div class="profile-container">
-                <img src="https://github.com/lac2304.png" alt="Avatar">
+                <img src="https://github.com/lac2304.png" alt="Nguyen Huu Loi">
             </div>
             <h1>Nguyen Huu Loi</h1>
-            <p>BACKEND DEVELOPER // ASP.NET // REACT</p>
+            <p>Backend Developer & UI Enthusiast</p>
             <div class="btn-group">
                 <a class="btn" href="https://github.com/lac2304" target="_blank">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
                 </a>
-                <a class="btn" href="cv.pdf" target="_blank">
-                📄 View CV
+                <a class="btn" href="cv.pdf" target="_blank" style="background: var(--primary); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);">
+                    Resume
                 </a>
-                <a class="btn" href="mailto:loihuu114@gmail.com">
-                ✉ Contact
+                <a class="btn btn-outline" href="mailto:loihuu114@gmail.com">
+                    ✉ Get In Touch
                 </a>
             </div>
         </header>
 
         <section id="about">
-            <h2>01. About Me</h2>
-            <p style="max-width: 700px; color: var(--text-dim);">
-                I am a developer passionate about building high-performance web applications. 
-                With a focus on <span style="color: var(--primary);">Backend systems</span> and seamless 
-                <span style="color: var(--primary);">Frontend experiences</span>, 
-                I strive to write clean, maintainable code that solves real-world problems.
-            </p>
+            <h2>About</h2>
+            <div class="about-content">
+                I am a <b>Backend Developer</b> specializing in the .NET ecosystem. 
+                I focus on building <b>scalable systems</b> and high-performance APIs, 
+                blending technical precision with modern design aesthetics.
+            </div>
         </section>
 
         <section id="skills">
-            <h2>02. Tech Stack</h2>
+            <h2>Tech Stack</h2>
             <div class="skills">
                 <span>C#</span>
                 <span>ASP.NET Core</span>
                 <span>React.js</span>
-                <span>JavaScript (ES6+)</span>
                 <span>SQL Server</span>
-                <span>Entity Framework</span>
-                <span>RESTful APIs</span>
-                <span>Git & DevOps</span>
+                <span>PostgreSQL</span>
+                <span>Docker</span>
+                <span>Git</span>
+                <span>AWS</span>
             </div>
         </section>
 
         <section id="projects">
-            <h2>03. Featured Projects</h2>
+            <h2>Featured Projects</h2>
             <div class="projects">
                 <div class="card">
-                    <h3>BookStore Management</h3>
-                    <p>Enterprise-grade web application with secure authentication and real-time inventory tracking.</p>
-                    <a href="https://github.com/lac2304" target="_blank">Repository →</a>
+                    <h3>BookStore Pro</h3>
+                    <p>Comprehensive ERP solution for bookstores with automated reporting and secure payment gateway integration.</p>
+                    <a href="#">Explore Project →</a>
                 </div>
-
                 <div class="card">
-                    <h3>Social Media Engine</h3>
-                    <p>A high-interaction React platform featuring nested threading, state management, and async updates.</p>
-                    <a href="https://github.com/lac2304" target="_blank">Repository →</a>
+                    <h3>Social Engine</h3>
+                    <p>Real-time social platform optimized for low-latency interactions using WebSockets and React.</p>
+                    <a href="#">Explore Project →</a>
                 </div>
-
                 <div class="card">
-                    <h3>OMS Desktop</h3>
-                    <p>Robust Order Management System focused on data consistency and high-speed local processing.</p>
-                    <a href="https://github.com/lac2304" target="_blank">Repository →</a>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Financial monitoring tool with interactive data visualization and predictive market analysis.</p>
+                    <a href="#">Explore Project →</a>
                 </div>
             </div>
         </section>
 
         <footer>
-            <p>© 2026 Nguyen Huu Loi • Built with Passion</p>
+            <p>© 2026 Nguyen Huu Loi • Optimized for Performance</p>
         </footer>
     </div>
 

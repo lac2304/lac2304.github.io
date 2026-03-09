@@ -3,330 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyen Huu Loi | Tech Portfolio</title>
+    <title>Nguyen Huu Loi | System Architect</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Orbitron:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #2563eb; /* Royal Blue công nghệ */
-            --secondary: #7dd3fc;
-            --bg: #ffffff;
-            --sub-bg: #f8fafc;
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --border: rgba(0, 0, 0, 0.05);
-            --text-main: #0f172a;
-            --text-dim: #64748b;
+            --primary: #00d2ff;
+            --accent: #ff003c;
+            --bg-dark: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(0, 210, 255, 0.2);
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
+            font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Nền hiệu ứng hiện đại */
-        .bg-elements {
+        /* Nền Grid */
+        .bg-grid {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -1;
-            background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+            mask-image: radial-gradient(circle at center, black, transparent 90%);
+            opacity: 0.15;
         }
 
-        .blob {
+        .container { width: 90%; max-width: 1000px; margin: auto; }
+
+        /* --- HEADER & SNAKE AVATAR --- */
+        header { text-align: center; padding: 60px 0 40px; }
+
+        .profile-wrapper {
+            position: relative;
+            width: 180px; height: 180px;
+            margin: 0 auto 25px;
+        }
+
+        .avatar {
+            width: 130px; height: 130px;
+            border-radius: 50%;
             position: absolute;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
-            filter: blur(100px);
-            opacity: 0.2;
-            z-index: -1;
-            animation: float 25s infinite alternate;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            z-index: 1;
         }
 
-        @keyframes float {
-            0% { transform: translate(-10%, -10%); }
-            100% { transform: translate(30%, 20%); }
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            padding: 120px 0 80px;
-        }
-
-        .profile-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 30px;
-        }
-
-        header img {
-            width: 150px;
-            height: 150px;
-            border-radius: 40px; /* Bo kiểu iOS hiện đại */
-            border: 4px solid white;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            position: relative;
+        .snake-svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 2;
-            object-fit: cover;
+            animation: float 4s ease-in-out infinite;
         }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         header h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: -2px;
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            background: linear-gradient(to bottom, #fff, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
         }
 
-        header p {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            margin-bottom: 35px;
-            text-transform: uppercase;
-        }
-
-        /* Buttons group */
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--text-main);
-            color: white;
-            padding: 14px 28px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
-        }
-
-        .btn-outline {
-            background: white;
-            color: var(--text-main);
+        /* --- ABOUT ME (TERMINAL STYLE) --- */
+        .terminal-box {
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--border);
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.2);
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Sections */
-        section {
-            padding: 80px 0;
-        }
-
-        h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 40px;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 40px 0;
+            font-family: 'Fira Code', monospace;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             position: relative;
         }
 
-        h2::before {
-            content: '';
+        .terminal-header {
             position: absolute;
-            left: 0; bottom: -10px;
-            width: 50px; height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
+            top: 0; left: 0; width: 100%;
+            padding: 8px 15px;
+            background: var(--border);
+            font-size: 12px;
+            display: flex; gap: 8px;
         }
 
-        /* About Text */
-        .about-content {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            max-width: 800px;
-            line-height: 1.8;
-        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
 
-        .about-content b { color: var(--text-main); }
+        .terminal-content { margin-top: 15px; font-size: 0.95rem; line-height: 1.8; }
+        .terminal-content b { color: var(--primary); }
+        .cursor { display: inline-block; width: 8px; height: 18px; background: var(--primary); animation: blink 1s infinite; vertical-align: middle; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* Skills Grid */
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .skills span {
-            background: white;
+        /* --- TECH STACK --- */
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .skill-item {
+            background: rgba(255,255,255,0.05);
             border: 1px solid var(--border);
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: 0.3s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .skills span:hover {
-            border-color: var(--primary);
+            padding: 8px 18px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
             color: var(--primary);
-            transform: scale(1.05);
+            transition: 0.3s;
         }
+        .skill-item:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary); }
 
-        /* Projects */
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+        /* --- BUTTONS --- */
+        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .btn {
+            padding: 12px 25px;
+            font-family: 'Orbitron', sans-serif;
+            text-decoration: none;
+            font-size: 0.8rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
         }
+        .btn-resume { background: var(--primary); color: #000; font-weight: bold; }
+        .btn-outline { border: 1px solid var(--primary); color: var(--primary); }
+        .btn:hover { filter: brightness(1.2); transform: scale(1.05); }
 
+        /* --- PROJECTS --- */
+        .section-title { font-family: 'Orbitron', sans-serif; margin: 60px 0 30px; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ''; height: 1px; flex-grow: 1; background: var(--border); }
+
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 40px;
-            border-radius: 32px;
-            backdrop-filter: blur(10px);
-            transition: 0.4s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            padding: 30px;
+            transition: 0.3s;
         }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(0, 210, 255, 0.05); }
 
-        .card:hover {
-            background: white;
-            border-color: var(--primary);
-            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.1);
-            transform: translateY(-10px);
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .card p {
-            color: var(--text-dim);
-            margin-bottom: 25px;
-        }
-
-        .card a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 80px 0 40px;
-            color: var(--text-dim);
-            border-top: 1px solid var(--border);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 600px) {
-            header { padding-top: 60px; }
-            header h1 { font-size: 2.5rem; }
-            .btn-group { flex-direction: column; }
-        }
+        footer { text-align: center; padding: 80px 0 40px; opacity: 0.3; font-size: 0.8rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-    <div class="bg-elements">
-        <div class="blob" style="top: 10%; left: -10%;"></div>
-        <div class="blob" style="bottom: 10%; right: -10%; background: radial-gradient(circle, #bae6fd 0%, transparent 70%);"></div>
-    </div>
+    <div class="bg-grid"></div>
 
     <div class="container">
         <header>
-            <div class="profile-container">
-                <img src="https://github.com/lac2304.png" alt="Nguyen Huu Loi">
+            <div class="profile-wrapper">
+                <img src="https://github.com/lac2304.png" alt="Lợi" class="avatar">
+                <svg class="snake-svg" viewBox="0 0 100 100">
+                    <path d="M20,80 C20,80 10,60 30,50 C50,40 85,60 85,35 C85,20 60,10 45,25" fill="none" stroke="#00d2ff" stroke-width="3" stroke-linecap="round" />
+                    <circle cx="45" cy="25" r="1.5" fill="#ff003c"><animate attributeName="opacity" values="1;0.2;1" dur="1s" infinite /></circle>
+                </svg>
             </div>
-            <h1>Nguyen Huu Loi</h1>
-            <p>Backend Developer & UI Enthusiast</p>
+            <h1>NGUYEN HUU LOI</h1>
+            <p style="color: var(--primary); letter-spacing: 5px; font-size: 0.8rem; margin-top: 10px;">BACKEND_DEVELOPER_V2.0</p>
+            
             <div class="btn-group">
-                <a class="btn" href="https://github.com/lac2304" target="_blank">
-                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a class="btn" href="cv.pdf" target="_blank" style="background: var(--primary); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);">
-                    Resume
-                </a>
-                <a class="btn btn-outline" href="mailto:loihuu114@gmail.com">
-                    ✉ Get In Touch
-                </a>
+                <a href="cv.pdf" class="btn btn-resume">RESUME</a>
+                <a href="https://github.com/lac2304" class="btn btn-outline">GITHUB</a>
             </div>
         </header>
 
         <section id="about">
-            <h2>About</h2>
-            <div class="about-content">
-                I am a <b>Backend Developer</b> specializing in the .NET ecosystem. 
-                I focus on building <b>scalable systems</b> and high-performance APIs, 
-                blending technical precision with modern design aesthetics.
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                    <span style="margin-left: 10px; opacity: 0.5;">loi_profile.sh</span>
+                </div>
+                <div class="terminal-content">
+                    <p>> cat about_me.txt</p>
+                    <p style="margin-top: 10px;">
+                        Tôi là một <b>Backend Developer</b> với niềm đam mê mãnh liệt trong việc xây dựng các hệ thống scalable trên hệ sinh thái <b>.NET</b>. 
+                        Tôi tập trung vào việc tạo ra các API hiệu năng cao, xử lý dữ liệu lớn và luôn cân bằng giữa độ chính xác kỹ thuật với trải nghiệm người dùng hiện đại.<span class="cursor"></span>
+                    </p>
+                </div>
             </div>
         </section>
 
         <section id="skills">
-            <h2>Tech Stack</h2>
-            <div class="skills">
-                <span>C#</span>
-                <span>ASP.NET Core</span>
-                <span>React.js</span>
-                <span>SQL Server</span>
-                <span>PostgreSQL</span>
-                <span>Docker</span>
-                <span>Git</span>
-                <span>AWS</span>
+            <h2 class="section-title">01_SKILLS</h2>
+            <div class="skills-grid">
+                <div class="skill-item">C#</div>
+                <div class="skill-item">ASP.NET CORE</div>
+                <div class="skill-item">REACT.JS</div>
+                <div class="skill-item">SQL SERVER</div>
+                <div class="skill-item">DOCKER</div>
+                <div class="skill-item">AWS</div>
+                <div class="skill-item">POSTGRESQL</div>
             </div>
         </section>
 
         <section id="projects">
-            <h2>Featured Projects</h2>
-            <div class="projects">
+            <h2 class="section-title">02_PROJECTS</h2>
+            <div class="card-grid">
                 <div class="card">
-                    <h3>BookStore Pro</h3>
-                    <p>Comprehensive ERP solution for bookstores with automated reporting and secure payment gateway integration.</p>
-                    <a href="#">Explore Project →</a>
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">BookStore Pro</h3>
+                    <p style="color: var(--text-dim);">Giải pháp ERP toàn diện cho nhà sách với báo cáo tự động và bảo mật cao.</p>
                 </div>
                 <div class="card">
-                    <h3>Social Engine</h3>
-                    <p>Real-time social platform optimized for low-latency interactions using WebSockets and React.</p>
-                    <a href="#">Explore Project →</a>
-                </div>
-                <div class="card">
-                    <h3>Analytics Dashboard</h3>
-                    <p>Financial monitoring tool with interactive data visualization and predictive market analysis.</p>
-                    <a href="#">Explore Project →</a>
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">Social Engine</h3>
+                    <p style="color: var(--text-dim);">Nền tảng mạng xã hội thời gian thực tối ưu hóa độ trễ qua WebSockets.</p>
                 </div>
             </div>
         </section>
 
         <footer>
-            <p>© 2026 Nguyen Huu Loi • Optimized for Performance</p>
+            <p>// SYSTEM STATUS: OPTIMIZED // 2026 //</p>
         </footer>
     </div>
 

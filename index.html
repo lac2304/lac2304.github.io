@@ -25,6 +25,53 @@
             color: var(--text-main);
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
+            cursor: none;
+        }
+
+        .snake-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Để không bị cản trở khi click vào nút */
+            z-index: 9999;
+        }
+
+        .snake-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            transition: transform 0.1s ease-out;
+            filter: drop-shadow(0 0 5px var(--primary));
+        }
+
+        /* Đốt đầu tiên là đầu rắn với mắt đỏ */
+        .snake-dot:first-child {
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            z-index: 10000;
+        }
+
+        .snake-dot:first-child::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 3px;
+            height: 3px;
+            background: var(--accent); /* Mắt đỏ */
+            border-radius: 50%;
+            box-shadow: 4px 0 0 var(--accent); /* Mắt thứ hai */
+        }
+
+        /* Khi di chuột vào các nút, con rắn sẽ sáng rực lên */
+        body:active .snake-dot {
+            transform: scale(1.5);
+            background: var(--accent);
         }
 
         /* Nền Grid */
@@ -219,6 +266,56 @@
             <p>// SYSTEM STATUS: OPTIMIZED // 2026 //</p>
         </footer>
     </div>
+    <div class="snake-cursor" id="snakeCursor"></div>
 
+<script>
+    const cursorContainer = document.getElementById('snakeCursor');
+    const dots = [];
+    const snakeLength = 12; // Độ dài của con rắn (số đốt)
+
+    // Tạo các đốt cho con rắn
+    for (let i = 0; i < snakeLength; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'snake-dot';
+        // Đốt càng về sau càng nhỏ lại
+        const size = (snakeLength - i) / snakeLength;
+        dot.style.opacity = size;
+        dot.style.transform = `scale(${size})`;
+        
+        cursorContainer.appendChild(dot);
+        dots.push({ x: 0, y: 0, element: dot });
+    }
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function animate() {
+        let x = mouseX;
+        let y = mouseY;
+
+        dots.forEach((dot, index) => {
+            // Hiệu ứng đuổi theo: đốt sau đuổi theo đốt trước với độ trễ
+            const nextDot = dots[index + 1] || dots[0];
+            
+            dot.x += (x - dot.x) * 0.3;
+            dot.y += (y - dot.y) * 0.3;
+            
+            dot.element.style.left = `${dot.x}px`;
+            dot.element.style.top = `${dot.y}px`;
+
+            x = dot.x;
+            y = dot.y;
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
 </body>
 </html>

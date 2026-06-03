@@ -1,321 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyen Huu Loi | System Architect</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Orbitron:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <title>Nguyen Huu Loi | Software Engineer</title>
     
     <style>
         :root {
-            --primary: #00d2ff;
-            --accent: #ff003c;
-            --bg-dark: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(0, 210, 255, 0.2);
-            --text-main: #e2e8f0;
-            --text-dim: #94a3b8;
+            --bg-body: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-body);
             color: var(--text-main);
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-            cursor: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
         }
 
-        .snake-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Để không bị cản trở khi click vào nút */
-            z-index: 9999;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .snake-dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-            transition: transform 0.1s ease-out;
-            filter: drop-shadow(0 0 5px var(--primary));
-        }
-
-        /* Đốt đầu tiên là đầu rắn với mắt đỏ */
-        .snake-dot:first-child {
-            width: 12px;
-            height: 12px;
-            background: var(--primary);
-            z-index: 10000;
-        }
-
-        .snake-dot:first-child::after {
-            content: '';
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 3px;
-            height: 3px;
-            background: var(--accent); /* Mắt đỏ */
-            border-radius: 50%;
-            box-shadow: 4px 0 0 var(--accent); /* Mắt thứ hai */
-        }
-
-        /* Khi di chuột vào các nút, con rắn sẽ sáng rực lên */
-        body:active .snake-dot {
-            transform: scale(1.5);
-            background: var(--accent);
-        }
-
-        /* Nền Grid */
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-            mask-image: radial-gradient(circle at center, black, transparent 90%);
-            opacity: 0.15;
-        }
-
-        .container { width: 90%; max-width: 1000px; margin: auto; }
-
-        /* --- HEADER & SNAKE AVATAR --- */
-        header { text-align: center; padding: 60px 0 40px; }
-
-        .profile-wrapper {
-            position: relative;
-            width: 180px; height: 180px;
-            margin: 0 auto 25px;
+        /* --- HEADER --- */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
         }
 
         .avatar {
-            width: 130px; height: 130px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-            z-index: 1;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .snake-svg {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 2;
-            animation: float 4s ease-in-out infinite;
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
         }
 
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-        header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            background: linear-gradient(to bottom, #fff, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 3px;
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 25px;
         }
 
-        /* --- ABOUT ME (TERMINAL STYLE) --- */
-        .terminal-box {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 25px;
-            margin: 40px 0;
-            font-family: 'Fira Code', monospace;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap; /* Giúp các nút tự động xuống dòng trên màn hình nhỏ */
         }
 
-        .terminal-header {
-            position: absolute;
-            top: 0; left: 0; width: 100%;
-            padding: 8px 15px;
-            background: var(--border);
-            font-size: 12px;
-            display: flex; gap: 8px;
-        }
-
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
-
-        .terminal-content { margin-top: 15px; font-size: 0.95rem; line-height: 1.8; }
-        .terminal-content b { color: var(--primary); }
-        .cursor { display: inline-block; width: 8px; height: 18px; background: var(--primary); animation: blink 1s infinite; vertical-align: middle; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* --- TECH STACK --- */
-        .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-        .skill-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border);
-            padding: 8px 18px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            color: var(--primary);
-            transition: 0.3s;
-        }
-        .skill-item:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary); }
-
-        /* --- BUTTONS --- */
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
         .btn {
-            padding: 12px 25px;
-            font-family: 'Orbitron', sans-serif;
+            padding: 10px 24px;
+            border-radius: 6px;
             text-decoration: none;
-            font-size: 0.8rem;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            transition: 0.3s;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
         }
-        .btn-resume { background: var(--primary); color: #000; font-weight: bold; }
-        .btn-outline { border: 1px solid var(--primary); color: var(--primary); }
-        .btn:hover { filter: brightness(1.2); transform: scale(1.05); }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            background-color: var(--card-bg);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2.section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .about-text {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* --- SKILLS --- */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
 
         /* --- PROJECTS --- */
-        .section-title { font-family: 'Orbitron', sans-serif; margin: 60px 0 30px; color: var(--primary); display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content: ''; height: 1px; flex-grow: 1; background: var(--border); }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
 
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            padding: 30px;
-            transition: 0.3s;
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(0, 210, 255, 0.05); }
 
-        footer { text-align: center; padding: 80px 0 40px; opacity: 0.3; font-size: 0.8rem; letter-spacing: 2px; }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .tech-stack {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-grid"></div>
-
     <div class="container">
+        <!-- HEADER -->
         <header>
-            <div class="profile-wrapper">
-                <img src="https://github.com/lac2304.png" alt="Lợi" class="avatar">
-                <svg class="snake-svg" viewBox="0 0 100 100">
-                    <path d="M20,80 C20,80 10,60 30,50 C50,40 85,60 85,35 C85,20 60,10 45,25" fill="none" stroke="#00d2ff" stroke-width="3" stroke-linecap="round" />
-                    <circle cx="45" cy="25" r="1.5" fill="#ff003c"><animate attributeName="opacity" values="1;0.2;1" dur="1s" infinite /></circle>
-                </svg>
-            </div>
-            <h1>NGUYEN HUU LOI</h1>
-            <p style="color: var(--primary); letter-spacing: 5px; font-size: 0.8rem; margin-top: 10px;">BACKEND_DEVELOPER_V2.0</p>
+            <img src="https://github.com/lac2304.png" alt="Nguyen Huu Loi Avatar" class="avatar">
+            <h1>Nguyễn Hữu Lợi</h1>
+            <p class="subtitle">Software Engineering Student | Fullstack Developer</p>
             
             <div class="btn-group">
-                <a href="cv.pdf" class="btn btn-resume">RESUME</a>
-                <a href="https://github.com/lac2304" class="btn btn-outline">GITHUB</a>
+                <a href="cv-vi.pdf" target="_blank" class="btn btn-primary">CV Tiếng Việt</a>
+                <a href="cv-en.pdf" target="_blank" class="btn btn-primary">CV English</a>
+                <a href="https://github.com/lac2304" target="_blank" class="btn btn-outline">GitHub Profile</a>
             </div>
         </header>
 
+        <!-- ABOUT -->
         <section id="about">
-            <div class="terminal-box">
-                <div class="terminal-header">
-                    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-                    <span style="margin-left: 10px; opacity: 0.5;">loi_profile.sh</span>
-                </div>
-                <div class="terminal-content">
-                    <p>> cat about_me.txt</p>
-                    <p style="margin-top: 10px;">
-                        Tôi là một <b>Backend Developer</b> với niềm đam mê mãnh liệt trong việc xây dựng các hệ thống scalable trên hệ sinh thái <b>.NET</b>. 
-                        Tôi tập trung vào việc tạo ra các API hiệu năng cao, xử lý dữ liệu lớn và luôn cân bằng giữa độ chính xác kỹ thuật với trải nghiệm người dùng hiện đại.<span class="cursor"></span>
-                    </p>
-                </div>
-            </div>
+            <h2 class="section-title">Giới thiệu</h2>
+            <p class="about-text">
+                Tôi là một lập trình viên đam mê xây dựng các hệ thống ứng dụng Web Fullstack và tích hợp Trí tuệ Nhân tạo. Tôi đặc biệt tập trung vào việc thiết kế kiến trúc hệ thống, phát triển các API hiệu năng cao và mang lại trải nghiệm UI/UX thân thiện với người dùng.
+            </p>
         </section>
 
+        <!-- SKILLS -->
         <section id="skills">
-            <h2 class="section-title">01_SKILLS</h2>
+            <h2 class="section-title">Kỹ năng chuyên môn</h2>
             <div class="skills-grid">
-                <div class="skill-item">C#</div>
-                <div class="skill-item">ASP.NET CORE</div>
-                <div class="skill-item">REACT.JS</div>
-                <div class="skill-item">SQL SERVER</div>
-                <div class="skill-item">DOCKER</div>
-                <div class="skill-item">AWS</div>
-                <div class="skill-item">POSTGRESQL</div>
+                <div class="skill-tag">Java Spring Boot</div>
+                <div class="skill-tag">Python & FastAPI</div>
+                <div class="skill-tag">ReactJS & Next.js</div>
+                <div class="skill-tag">TailwindCSS</div>
+                <div class="skill-tag">Figma (UI/UX)</div>
+                <div class="skill-tag">AI Model Serving (CNN)</div>
+                <div class="skill-tag">RESTful API</div>
             </div>
         </section>
 
+        <!-- PROJECTS -->
         <section id="projects">
-            <h2 class="section-title">02_PROJECTS</h2>
-            <div class="card-grid">
+            <h2 class="section-title">Dự án nổi bật</h2>
+            <div class="projects-grid">
+                
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">BookStore Pro</h3>
-                    <p style="color: var(--text-dim);">Giải pháp ERP toàn diện cho nhà sách với báo cáo tự động và bảo mật cao.</p>
+                    <h3>Food Tourism App</h3>
+                    <p>Ứng dụng web du lịch ẩm thực kết hợp bản đồ tương tác (Leaflet/Google Maps API) và tính năng hướng dẫn bằng giọng nói.</p>
+                    <span class="tech-stack">ReactJS • Java Spring Boot • API</span>
                 </div>
+
                 <div class="card">
-                    <h3 style="color: var(--primary); margin-bottom: 10px;">Social Engine</h3>
-                    <p style="color: var(--text-dim);">Nền tảng mạng xã hội thời gian thực tối ưu hóa độ trễ qua WebSockets.</p>
+                    <h3>Smart Spa Management</h3>
+                    <p>Hệ thống đặt lịch thông minh cho Spa. Tích hợp AI phân tích da để tự động đưa ra các đề xuất liệu trình chăm sóc cá nhân hóa.</p>
+                    <span class="tech-stack">ReactJS • FastAPI • AI Integration</span>
                 </div>
+
+                <div class="card">
+                    <h3>Plant Disease Prediction AI</h3>
+                    <p>Huấn luyện mạng nơ-ron tích chập (EfficientNetV2B3) để nhận diện bệnh trên lá cây và triển khai hệ thống dự đoán trực tuyến.</p>
+                    <span class="tech-stack">Python • FastAPI • EfficientNet</span>
+                </div>
+
             </div>
         </section>
 
+        <!-- FOOTER -->
         <footer>
-            <p>// SYSTEM STATUS: OPTIMIZED // 2026 //</p>
+            <p>&copy; 2026 Nguyen Huu Loi. Designed with Simplicity.</p>
         </footer>
     </div>
-    <div class="snake-cursor" id="snakeCursor"></div>
 
-<script>
-    const cursorContainer = document.getElementById('snakeCursor');
-    const dots = [];
-    const snakeLength = 12; // Độ dài của con rắn (số đốt)
-
-    // Tạo các đốt cho con rắn
-    for (let i = 0; i < snakeLength; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'snake-dot';
-        // Đốt càng về sau càng nhỏ lại
-        const size = (snakeLength - i) / snakeLength;
-        dot.style.opacity = size;
-        dot.style.transform = `scale(${size})`;
-        
-        cursorContainer.appendChild(dot);
-        dots.push({ x: 0, y: 0, element: dot });
-    }
-
-    let mouseX = 0;
-    let mouseY = 0;
-
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function animate() {
-        let x = mouseX;
-        let y = mouseY;
-
-        dots.forEach((dot, index) => {
-            // Hiệu ứng đuổi theo: đốt sau đuổi theo đốt trước với độ trễ
-            const nextDot = dots[index + 1] || dots[0];
-            
-            dot.x += (x - dot.x) * 0.3;
-            dot.y += (y - dot.y) * 0.3;
-            
-            dot.element.style.left = `${dot.x}px`;
-            dot.element.style.top = `${dot.y}px`;
-
-            x = dot.x;
-            y = dot.y;
-        });
-
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-</script>
 </body>
 </html>
